@@ -5,30 +5,25 @@
     box-sizing: border-box;
 }
 
-/* Root Variables for Bold, Playful Orange Theme */
+/* Root Variables for Colorful, Playful Theme - Inspired by Reference.png */
 :root {
-    --primary-orange: #ff6b35;
-    --secondary-orange: #ff8c42;
-    --accent-pink: #ff3366;
-    --accent-yellow: #ffd23f;
-    --success-green: #06d6a0;
-    --background-cream: #fffbf0;
-    --surface-white: #ffffff;
-    --text-dark: #2d3142;
-    --text-medium: #4f5d75;
-    --text-light: #9aa5b1;
-    --border-radius-sm: 12px;
-    --border-radius-md: 20px;
-    --border-radius-lg: 28px;
-    --border-radius-xl: 40px;
+    --primary-color: #ff6b9d;
+    --secondary-color: #c44569;
+    --accent-color: #ffa07a;
+    --success-color: #4ecdc4;
+    --background-color: #ffe5ec;
+    --surface-color: #ffffff;
+    --text-color: #2d3436;
+    --text-light: #636e72;
+    --shadow-soft: 0 10px 40px rgba(255, 107, 157, 0.15);
+    --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.08);
+    --border-radius: 24px;
+    --border-radius-lg: 32px;
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
-    --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
-    --shadow-md: 0 8px 24px rgba(255, 107, 53, 0.15);
-    --shadow-lg: 0 16px 48px rgba(255, 107, 53, 0.2);
 }
 
 /* Base Typography */
@@ -36,33 +31,29 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--text-dark);
-    background: linear-gradient(135deg, var(--background-cream) 0%, #fff5e6 100%);
+    color: var(--text-color);
+    background: linear-gradient(135deg, #ffe5ec 0%, #ffc9d9 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     margin-bottom: var(--spacing-sm);
-    color: var(--text-dark);
 }
 
 h1 {
-    font-size: 2.5rem;
-    letter-spacing: -0.02em;
+    font-size: 2rem;
 }
 
 h2 {
-    font-size: 1.75rem;
-    letter-spacing: -0.01em;
+    font-size: 1.5rem;
 }
 
 p {
     margin-bottom: var(--spacing-sm);
-    color: var(--text-medium);
 }
 
 /* Mobile-First Layout */
@@ -75,45 +66,21 @@ p {
 
 /* Header */
 header {
-    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
-    color: white;
+    background: transparent;
+    color: var(--primary-color);
     padding: var(--spacing-lg) var(--spacing-md);
     text-align: center;
-    box-shadow: var(--shadow-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 200px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-}
-
-header::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -5%;
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.25rem;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    position: relative;
-    z-index: 1;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Main Content */
@@ -123,68 +90,54 @@ main {
 }
 
 .welcome {
-    background: var(--surface-white);
+    background: var(--surface-color);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xl);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-card);
     text-align: center;
-    border: 4px solid var(--primary-orange);
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.welcome:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
 }
 
 .welcome::before {
     content: '';
     position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background: var(--accent-yellow);
-    border-radius: 50%;
-    opacity: 0.15;
-    z-index: 0;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 107, 157, 0.05) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .welcome h2 {
-    color: var(--primary-orange);
+    color: var(--primary-color);
     margin-bottom: var(--spacing-md);
     font-size: 2rem;
-    font-weight: 900;
+    font-weight: 700;
     position: relative;
-    z-index: 1;
 }
 
 .welcome p {
-    color: var(--text-medium);
-    font-size: 1.25rem;
+    color: var(--text-light);
+    font-size: 1.125rem;
     margin: 0;
-    font-weight: 500;
+    line-height: 1.8;
     position: relative;
-    z-index: 1;
-    line-height: 1.7;
 }
 
 /* Footer */
 footer {
-    background: var(--surface-white);
+    background: transparent;
     padding: var(--spacing-md);
     text-align: center;
-    color: var(--text-medium);
-    border-top: 3px solid var(--accent-yellow);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    color: var(--text-light);
 }
 
 footer p {
     margin: 0;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 /* Responsive Design - Tablet and Desktop */
@@ -194,19 +147,15 @@ footer p {
     }
     
     header h1 {
-        font-size: 2.75rem;
-    }
-    
-    h1 {
-        font-size: 3rem;
-    }
-    
-    h2 {
         font-size: 2.25rem;
     }
     
-    .welcome {
-        padding: var(--spacing-xl) calc(var(--spacing-xl) * 1.5);
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
     }
 }
 
