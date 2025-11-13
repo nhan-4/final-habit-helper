@@ -124,4 +124,23 @@ service-worker.js          # Background notification handler
 - No build tool (plain HTML/CSS/JS files)
 - No backend/API (localStorage only)
 
+## Development Tools & Workflow
+- **VS Code + GitHub Copilot**: Primary development environment
+- **GitHub**: Version control and repository hosting
+- **Vercel**: Deployment platform (provides HTTPS required for Service Workers)
+- **Figma**: UI/UX design and mockups (design-first approach)
+
+### Version Control Practices
+- Follow SDLC (Software Development Life Cycle) methodology
+- Use **Conventional Commits** format for all commits:
+  - `feat:` for new features
+  - `fix:` for bug fixes
+  - `docs:` for documentation changes
+  - `style:` for formatting/styling changes
+  - `refactor:` for code restructuring
+  - `test:` for adding tests
+  - `chore:` for maintenance tasks
+- **Commit often**: Make small, incremental commits after each logical change
+- Example: `feat: add habit creation form with validation`
+
 This is a **greenfield project**—establish these patterns from the start rather than refactoring later.
