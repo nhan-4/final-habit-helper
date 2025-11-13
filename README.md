@@ -24,3 +24,23 @@
 
 ### Platform
 - Needs to work on phone
+- Built with vanilla HTML/CSS/JavaScript (no frameworks)
+- All data stored in browser localStorage
+- Service Worker for background notifications
+
+## Development & Deployment
+
+### Tools Used
+- **VS Code + GitHub Copilot**: Primary development environment for coding
+- **GitHub**: Version control and code repository
+- **Vercel**: Hosting and automatic deployment (provides HTTPS required for Service Workers)
+- **Figma**: UI/UX design and mockups
+
+### Deployment
+- Connected to Vercel for automatic deployment on every push to `main`
+- Live URL: *[To be added after first deployment]*
+
+### Design
+- UI mockups and design planning done in Figma
+- Visual style: Colorful, playful, and cute
+- Mobile-first responsive design
