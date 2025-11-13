@@ -1,4 +1,14 @@
-# Idea: An app that helps people build the habits they want.
+# Habit Helper
+
+## What is this?
+
+Ever wanted to build a new habit—like drinking more water, reading daily, or going for walks—but struggled to stick with it? This app is here to help!
+
+**Habit Helper** is a simple, friendly web app that sends you cheerful reminders throughout the day to keep you on track. It celebrates your progress and shows you how many days you've kept your streak going. The goal? Make building habits feel fun and rewarding, not like a chore.
+
+Think of it as your personal cheerleader in your pocket, nudging you to keep going and celebrating every milestone along the way. 🎉
+
+---
 
 ## Core Features
 
