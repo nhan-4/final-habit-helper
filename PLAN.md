@@ -3,9 +3,12 @@
 ## Overview
 This plan breaks down the development of Habit Helper into manageable phases. Each phase builds on the previous one, creating a working prototype that gets progressively more feature-rich. The approach focuses on getting something visible and testable early, then iterating.
 
+**GitHub Issues:** All phases have been converted to GitHub issues for tracking. See [Issues #1-13](https://github.com/nhan-4/final-habit-helper/issues).
+
 ---
 
 ## Phase 1: Foundation & Setup
+[→ GitHub Issue #1](https://github.com/nhan-4/final-habit-helper/issues/1)
 **Goal:** Create the basic project structure and verify everything works
 
 ### Tasks
@@ -41,6 +44,8 @@ A working "Hello World" page that loads correctly on mobile and desktop, with lo
 ---
 
 ## Phase 2: Habit Creation
+[→ GitHub Issue #2](https://github.com/nhan-4/final-habit-helper/issues/2)
+
 **Goal:** Let users create and save their first habit
 
 ### Tasks
@@ -85,6 +90,8 @@ A functional form that saves habits to localStorage and persists across page ref
 ---
 
 ## Phase 3: Home Screen Display
+[→ GitHub Issue #3](https://github.com/nhan-4/final-habit-helper/issues/3)
+
 **Goal:** Display the user's habit with current streak
 
 ### Tasks
@@ -122,6 +129,8 @@ A home screen that displays the user's habit and calculates their current streak
 ---
 
 ## Phase 4: Daily Check-Off & Tracking
+[→ GitHub Issue #4](https://github.com/nhan-4/final-habit-helper/issues/4)
+
 **Goal:** Let users mark days complete and track progress
 
 ### Tasks
@@ -167,6 +176,8 @@ A working check-off system that saves progress and calculates streaks correctly,
 ---
 
 ## Phase 5: Multi-Habit Support & Navigation
+[→ GitHub Issue #5](https://github.com/nhan-4/final-habit-helper/issues/5)
+
 **Goal:** Support multiple habits with swipe navigation
 
 ### Tasks
@@ -205,6 +216,8 @@ Smooth swipe navigation between multiple habits with visual feedback and proper 
 ---
 
 ## Phase 6: Habit Management
+[→ GitHub Issue #6](https://github.com/nhan-4/final-habit-helper/issues/6)
+
 **Goal:** Edit, archive, and delete habits
 
 ### Tasks
@@ -242,6 +255,8 @@ Complete habit management system allowing users to edit, archive, and delete hab
 ---
 
 ## Phase 7: Tracking History Views
+[→ GitHub Issue #7](https://github.com/nhan-4/final-habit-helper/issues/7)
+
 **Goal:** Show detailed progress with calendar, list, and statistics
 
 ### Tasks
@@ -289,6 +304,8 @@ Comprehensive tracking history with multiple visualization options and filtering
 ---
 
 ## Phase 8: Browser Notifications Setup
+[→ GitHub Issue #8](https://github.com/nhan-4/final-habit-helper/issues/8)
+
 **Goal:** Request permission and schedule basic notifications
 
 ### Tasks
@@ -323,6 +340,8 @@ Working browser notifications that can be scheduled and displayed, with user per
 ---
 
 ## Phase 9: Service Worker Integration
+[→ GitHub Issue #9](https://github.com/nhan-4/final-habit-helper/issues/9)
+
 **Goal:** Enable background notifications even when app is closed
 
 ### Tasks
@@ -363,6 +382,8 @@ Fully functional background notifications via Service Worker that work even when
 ---
 
 ## Phase 10: Milestone Celebrations
+[→ GitHub Issue #10](https://github.com/nhan-4/final-habit-helper/issues/10)
+
 **Goal:** Celebrate user achievements at key milestones
 
 ### Tasks
@@ -405,6 +426,8 @@ Engaging milestone celebration system that motivates users to maintain their str
 ---
 
 ## Phase 11: Polish & UX Enhancements
+[→ GitHub Issue #11](https://github.com/nhan-4/final-habit-helper/issues/11)
+
 **Goal:** Refine the user experience and visual design
 
 ### Tasks
@@ -455,6 +478,8 @@ Polished, production-ready app with excellent UX and accessibility.
 ---
 
 ## Phase 12: Testing & Deployment
+[→ GitHub Issue #12](https://github.com/nhan-4/final-habit-helper/issues/12)
+
 **Goal:** Ensure quality and deploy to production
 
 ### Tasks
@@ -501,6 +526,8 @@ Fully tested and deployed Habit Helper app accessible via public URL.
 ---
 
 ## Phase 13: Future Enhancements (Optional)
+[→ GitHub Issue #13](https://github.com/nhan-4/final-habit-helper/issues/13)
+
 **Goal:** Ideas for future iterations
 
 ### Potential Features
