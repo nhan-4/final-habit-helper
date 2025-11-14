@@ -190,6 +190,136 @@ a:active {
     transform: scale(0.95);
 }
 
+/* Form Styles */
+.habit-form-container {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-medium);
+    border: 2px solid var(--border-color);
+}
+
+.habit-form-container h2 {
+    color: var(--text-color);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9375rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="time"],
+.form-group select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--background-color);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="time"]:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.form-group input[type="text"]:hover,
+.form-group input[type="time"]:hover,
+.form-group select:hover {
+    border-color: var(--primary-light);
+}
+
+/* Day Selection Checkboxes */
+.day-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--background-color);
+    user-select: none;
+}
+
+.checkbox-label:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: var(--spacing-xs);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.checkbox-label span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.checkbox-label:has(input:checked) {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-label:has(input:checked) span {
+    color: white;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.form-actions button {
+    flex: 1;
+}
+
+.btn-secondary {
+    background-color: var(--text-light);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-color);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.btn-secondary:active {
+    background-color: var(--text-color);
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+    min-width: 200px;
+}
+
 /* Responsive Design - Tablet and Desktop */
 @media (min-width: 768px) {
     .container {

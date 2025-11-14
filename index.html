@@ -15,9 +15,88 @@
     
     <main>
         <div class="container">
-            <div class="welcome">
+            <!-- Welcome Screen (Empty State) -->
+            <div id="welcome-screen" class="welcome">
                 <h2>Welcome!</h2>
                 <p>Your friendly habit tracking companion is ready to help you build great habits.</p>
+                <button id="show-create-form-btn" class="btn btn-primary">Create Your First Habit</button>
+            </div>
+
+            <!-- Habit Creation Form -->
+            <div id="habit-form-screen" class="habit-form-container" style="display: none;">
+                <h2>Create a New Habit</h2>
+                <form id="habit-form">
+                    <div class="form-group">
+                        <label for="habit-name">Habit Name *</label>
+                        <input 
+                            type="text" 
+                            id="habit-name" 
+                            name="habit-name" 
+                            placeholder="e.g., Morning Exercise, Read 10 pages"
+                            required
+                            maxlength="50"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notification-time">Notification Time *</label>
+                        <input 
+                            type="time" 
+                            id="notification-time" 
+                            name="notification-time" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequency">Frequency *</label>
+                        <select id="frequency" name="frequency" required>
+                            <option value="daily">Every Day</option>
+                            <option value="custom">Custom Days</option>
+                        </select>
+                    </div>
+
+                    <div id="day-selection" class="form-group" style="display: none;">
+                        <label>Select Days *</label>
+                        <div class="day-checkboxes">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="0">
+                                <span>Sun</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="1">
+                                <span>Mon</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="2">
+                                <span>Tue</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="3">
+                                <span>Wed</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="4">
+                                <span>Thu</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="5">
+                                <span>Fri</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="day" value="6">
+                                <span>Sat</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="form-messages"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create Habit</button>
+                        <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
