@@ -44,10 +44,11 @@ A working "Hello World" page that loads correctly on mobile and desktop, with lo
 
 ---
 
-## Phase 2: Habit Creation
+## Phase 2: Habit Creation ✅
 [→ GitHub Issue #2](https://github.com/nhan-4/final-habit-helper/issues/2)
 
 **Goal:** Let users create and save their first habit
+**Status:** ✅ Completed
 
 ### Tasks
 1. **Build habit creation form**
