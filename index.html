@@ -18,6 +18,80 @@
             <div class="welcome">
                 <h2>Welcome!</h2>
                 <p>Your friendly habit tracking companion is ready to help you build great habits.</p>
+                <p style="margin-top: 1.5rem; font-weight: 600; color: var(--primary-color);">Tap here to create your first habit! ✨</p>
+            </div>
+            
+            <div id="habitForm" class="habit-form-container hidden">
+                <h2>Create a New Habit</h2>
+                <form id="createHabitForm">
+                    <div class="form-group">
+                        <label for="habitName">Habit Name *</label>
+                        <input 
+                            type="text" 
+                            id="habitName" 
+                            name="habitName" 
+                            placeholder="e.g., Morning Exercise, Read 10 pages, Drink Water"
+                            required
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notificationTime">Notification Time *</label>
+                        <input 
+                            type="time" 
+                            id="notificationTime" 
+                            name="notificationTime" 
+                            required
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="frequency">Frequency *</label>
+                        <select id="frequency" name="frequency" required>
+                            <option value="daily">Daily</option>
+                            <option value="custom">Custom Days</option>
+                        </select>
+                    </div>
+                    
+                    <div id="daySelection" class="form-group day-selection hidden">
+                        <label>Select Days *</label>
+                        <div class="day-checkboxes">
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="0" />
+                                <span>Sun</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="1" />
+                                <span>Mon</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="2" />
+                                <span>Tue</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="3" />
+                                <span>Wed</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="4" />
+                                <span>Thu</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="5" />
+                                <span>Fri</span>
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" name="days" value="6" />
+                                <span>Sat</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create Habit</button>
+                        <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
