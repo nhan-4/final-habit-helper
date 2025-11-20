@@ -639,6 +639,8 @@ a:active {
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
     padding: var(--spacing-md) 0;
+    position: relative;
+    padding-bottom: 40px;
 }
 
 .nav-arrow {
@@ -702,12 +704,6 @@ a:active {
     bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
-}
-
-/* Add relative positioning to navigation container for counter */
-.habit-navigation {
-    position: relative;
-    padding-bottom: 40px;
 }
 
 /* Swipe transition animation */

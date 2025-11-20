@@ -171,7 +171,10 @@ function renderNavigationIndicators(currentIndex, totalHabits) {
     // Create dots
     for (let i = 0; i < totalHabits; i++) {
         const dot = document.createElement('span');
-        dot.className = i === currentIndex ? 'nav-dot active' : 'nav-dot';
+        dot.classList.add('nav-dot');
+        if (i === currentIndex) {
+            dot.classList.add('active');
+        }
         dot.setAttribute('aria-label', `Habit ${i + 1} of ${totalHabits}`);
         dotsContainer.appendChild(dot);
     }
