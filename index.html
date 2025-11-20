@@ -22,6 +22,27 @@
                 <button id="show-create-form-btn" class="btn btn-primary">Create Your First Habit</button>
             </div>
 
+            <!-- Home Screen (Habit Display) -->
+            <div id="home-screen" class="home-screen" style="display: none;">
+                <div class="habit-card">
+                    <div class="habit-name-section">
+                        <h2 id="habit-name-display" class="habit-name"></h2>
+                    </div>
+                    
+                    <div class="streak-section">
+                        <div class="streak-counter">
+                            <span id="streak-number" class="streak-number">0</span>
+                            <span class="streak-label">day streak</span>
+                        </div>
+                        <p id="streak-message" class="streak-message"></p>
+                    </div>
+                    
+                    <div class="habit-info">
+                        <p id="habit-created-date" class="created-date"></p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Habit Creation Form -->
             <div id="habit-form-screen" class="habit-form-container" style="display: none;">
                 <h2>Create a New Habit</h2>

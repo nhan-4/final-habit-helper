@@ -77,3 +77,51 @@ function getTodayISO() {
     const today = new Date();
     return today.toISOString().split('T')[0];
 }
+
+/**
+ * Calculate the current streak for a habit
+ * @param {string} habitId - Unique habit identifier
+ * @param {Object} habit - Habit object with frequency settings
+ * @returns {number} Current streak count
+ */
+function calculateStreak(habitId, habit) {
+    const trackingData = getTracking(habitId);
+    const today = new Date();
+    let currentDate = new Date(today);
+    let streak = 0;
+    
+    // Get habit creation date
+    const createdDate = new Date(habit.createdDate);
+    
+    // Helper function to check if a date should be tracked based on frequency
+    function shouldTrackDate(date) {
+        if (habit.frequency === 'daily') {
+            return true;
+        } else if (habit.frequency === 'custom' && habit.daySelection && habit.daySelection.length > 0) {
+            const dayOfWeek = date.getDay();
+            return habit.daySelection.includes(dayOfWeek);
+        }
+        return false;
+    }
+    
+    // Iterate backwards from today
+    while (currentDate.getTime() >= createdDate.getTime()) {
+        const dateISO = currentDate.toISOString().split('T')[0];
+        
+        // Check if this date should be tracked based on frequency
+        if (shouldTrackDate(currentDate)) {
+            // Check if completed on this date
+            if (trackingData[dateISO] && trackingData[dateISO].completed) {
+                streak++;
+            } else {
+                // Streak broken - stop counting
+                break;
+            }
+        }
+        
+        // Move to previous day
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+    
+    return streak;
+}
