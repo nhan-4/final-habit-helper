@@ -530,3 +530,103 @@ a:active {
         opacity: 0;
     }
 }
+
+/* Home Screen Styles */
+.home-screen {
+    padding: var(--spacing-md) 0;
+}
+
+.habit-card {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-medium);
+    color: white;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.habit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.25);
+}
+
+.habit-name-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.habit-name {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.streak-section {
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg) 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.streak-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.streak-number {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    animation: pulseStreak 2s ease-in-out infinite;
+}
+
+.streak-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.95;
+}
+
+.streak-message {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: var(--spacing-md);
+    opacity: 0.9;
+}
+
+.habit-info {
+    margin-top: var(--spacing-lg);
+}
+
+.created-date {
+    font-size: 0.9375rem;
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+@keyframes pulseStreak {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive adjustments for home screen */
+@media (min-width: 768px) {
+    .habit-name {
+        font-size: 2.5rem;
+    }
+    
+    .streak-number {
+        font-size: 5rem;
+    }
+}

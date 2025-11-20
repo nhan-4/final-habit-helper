@@ -82,3 +82,55 @@ function clearForm(form) {
     form.reset();
     toggleDaySelection('daily'); // Reset day selection visibility
 }
+
+/**
+ * Render the home screen with habit data
+ * @param {Object} habit - Habit object to display
+ * @param {number} streak - Current streak count
+ */
+function renderHomeScreen(habit, streak) {
+    // Update habit name
+    const habitNameDisplay = document.getElementById('habit-name-display');
+    if (habitNameDisplay) {
+        habitNameDisplay.textContent = habit.name;
+    }
+    
+    // Update streak number
+    const streakNumber = document.getElementById('streak-number');
+    if (streakNumber) {
+        streakNumber.textContent = streak;
+    }
+    
+    // Update streak label (singular vs plural)
+    const streakLabel = document.querySelector('.streak-label');
+    if (streakLabel) {
+        streakLabel.textContent = streak === 1 ? 'day streak' : 'day streak';
+    }
+    
+    // Update streak message with encouraging text
+    const streakMessage = document.getElementById('streak-message');
+    if (streakMessage) {
+        if (streak === 0) {
+            streakMessage.textContent = "Let's get started! 🌟";
+        } else if (streak === 1) {
+            streakMessage.textContent = "Great start! Keep it up! 💪";
+        } else if (streak < 7) {
+            streakMessage.textContent = "You're building momentum! 🚀";
+        } else if (streak < 30) {
+            streakMessage.textContent = "Amazing consistency! 🎉";
+        } else if (streak < 100) {
+            streakMessage.textContent = "You're unstoppable! 🔥";
+        } else {
+            streakMessage.textContent = "Legendary streak! 🏆";
+        }
+    }
+    
+    // Update creation date
+    const createdDateEl = document.getElementById('habit-created-date');
+    if (createdDateEl) {
+        const createdDate = new Date(habit.createdDate);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = createdDate.toLocaleDateString('en-US', options);
+        createdDateEl.textContent = `Started on ${formattedDate}`;
+    }
+}

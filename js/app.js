@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     // Get DOM elements
     const welcomeScreen = document.getElementById('welcome-screen');
+    const homeScreen = document.getElementById('home-screen');
     const habitFormScreen = document.getElementById('habit-form-screen');
     const showFormBtn = document.getElementById('show-create-form-btn');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -21,8 +22,19 @@ function initializeApp() {
     const habits = getHabits();
     
     if (habits.length > 0) {
-        // TODO: Phase 3 - Show home screen with habits
-        console.log('Existing habits found:', habits);
+        // Show home screen with first habit
+        const firstHabit = habits[0];
+        const streak = calculateStreak(firstHabit.id, firstHabit);
+        
+        renderHomeScreen(firstHabit, streak);
+        
+        // Hide welcome screen and show home screen
+        welcomeScreen.style.display = 'none';
+        homeScreen.style.display = 'block';
+    } else {
+        // Show welcome screen for new users
+        welcomeScreen.style.display = 'block';
+        homeScreen.style.display = 'none';
     }
     
     // Event Listeners
@@ -33,7 +45,15 @@ function initializeApp() {
     
     cancelBtn.addEventListener('click', function() {
         habitFormScreen.style.display = 'none';
-        welcomeScreen.style.display = 'block';
+        
+        // Return to appropriate screen based on habits
+        const currentHabits = getHabits();
+        if (currentHabits.length > 0) {
+            homeScreen.style.display = 'block';
+        } else {
+            welcomeScreen.style.display = 'block';
+        }
+        
         clearForm(habitForm);
     });
     
