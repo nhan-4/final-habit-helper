@@ -134,3 +134,63 @@ function renderHomeScreen(habit, streak) {
         createdDateEl.textContent = `Started on ${formattedDate}`;
     }
 }
+
+/**
+ * Render navigation indicators for multi-habit support
+ * @param {number} currentIndex - Current habit index
+ * @param {number} totalHabits - Total number of habits
+ */
+function renderNavigationIndicators(currentIndex, totalHabits) {
+    const navContainer = document.getElementById('habit-navigation');
+    if (!navContainer) {
+        return;
+    }
+    
+    // Clear existing content
+    navContainer.innerHTML = '';
+    
+    // Only show navigation if there are multiple habits
+    if (totalHabits <= 1) {
+        navContainer.style.display = 'none';
+        return;
+    }
+    
+    navContainer.style.display = 'flex';
+    
+    // Create left arrow
+    const leftArrow = document.createElement('button');
+    leftArrow.className = 'nav-arrow nav-arrow-left';
+    leftArrow.innerHTML = '&#8249;'; // Left angle bracket
+    leftArrow.setAttribute('aria-label', 'Previous habit');
+    navContainer.appendChild(leftArrow);
+    
+    // Create dots container
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'nav-dots';
+    
+    // Create dots
+    for (let i = 0; i < totalHabits; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('nav-dot');
+        if (i === currentIndex) {
+            dot.classList.add('active');
+        }
+        dot.setAttribute('aria-label', `Habit ${i + 1} of ${totalHabits}`);
+        dotsContainer.appendChild(dot);
+    }
+    
+    navContainer.appendChild(dotsContainer);
+    
+    // Create right arrow
+    const rightArrow = document.createElement('button');
+    rightArrow.className = 'nav-arrow nav-arrow-right';
+    rightArrow.innerHTML = '&#8250;'; // Right angle bracket
+    rightArrow.setAttribute('aria-label', 'Next habit');
+    navContainer.appendChild(rightArrow);
+    
+    // Create habit counter
+    const counter = document.createElement('div');
+    counter.className = 'habit-counter';
+    counter.textContent = `${currentIndex + 1} of ${totalHabits}`;
+    navContainer.appendChild(counter);
+}
