@@ -105,7 +105,7 @@ function calculateStreak(habitId, habit) {
     }
     
     // Iterate backwards from today
-    while (currentDate >= createdDate) {
+    while (currentDate.getTime() >= createdDate.getTime()) {
         const dateISO = currentDate.toISOString().split('T')[0];
         
         // Check if this date should be tracked based on frequency
@@ -120,7 +120,7 @@ function calculateStreak(habitId, habit) {
         }
         
         // Move to previous day
-        currentDate.setDate(currentDate.getDate() - 1);
+        currentDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
     }
     
     return streak;
