@@ -120,7 +120,7 @@ function calculateStreak(habitId, habit) {
         }
         
         // Move to previous day
-        currentDate = new Date(currentDate.getTime() - 24 * 60 * 60 * 1000);
+        currentDate.setDate(currentDate.getDate() - 1);
     }
     
     return streak;
