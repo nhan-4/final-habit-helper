@@ -104,7 +104,7 @@ function renderHomeScreen(habit, streak) {
     // Update streak label (singular vs plural)
     const streakLabel = document.querySelector('.streak-label');
     if (streakLabel) {
-        streakLabel.textContent = streak === 1 ? 'day streak' : 'day streak';
+        streakLabel.textContent = streak === 1 ? 'day streak' : 'days streak';
     }
     
     // Update streak message with encouraging text
