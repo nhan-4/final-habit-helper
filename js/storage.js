@@ -125,3 +125,32 @@ function calculateStreak(habitId, habit) {
     
     return streak;
 }
+
+/**
+ * Get the current habit index (for multi-habit navigation)
+ * @returns {number} Current habit index (default 0)
+ */
+function getCurrentHabitIndex() {
+    try {
+        const index = localStorage.getItem('currentHabitIndex');
+        return index !== null ? parseInt(index) : 0;
+    } catch (error) {
+        console.error('Error reading current habit index from localStorage:', error);
+        return 0;
+    }
+}
+
+/**
+ * Save the current habit index
+ * @param {number} index - Habit index to save
+ * @returns {boolean} Success status
+ */
+function saveCurrentHabitIndex(index) {
+    try {
+        localStorage.setItem('currentHabitIndex', index.toString());
+        return true;
+    } catch (error) {
+        console.error('Error saving current habit index to localStorage:', error);
+        return false;
+    }
+}

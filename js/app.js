@@ -1,5 +1,9 @@
 // Main Application Logic for Habit Helper
 
+// Global state
+let currentHabits = [];
+let currentHabitIndex = 0;
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -18,19 +22,33 @@ function initializeApp() {
     const habitForm = document.getElementById('habit-form');
     const frequencySelect = document.getElementById('frequency');
     
-    // Check if there are existing habits
-    const habits = getHabits();
+    // Load habits and current index
+    currentHabits = getHabits();
+    currentHabitIndex = getCurrentHabitIndex();
     
-    if (habits.length > 0) {
-        // Show home screen with first habit
-        const firstHabit = habits[0];
-        const streak = calculateStreak(firstHabit.id, firstHabit);
-        
-        renderHomeScreen(firstHabit, streak);
+    // Ensure index is valid
+    if (currentHabitIndex >= currentHabits.length) {
+        currentHabitIndex = 0;
+        saveCurrentHabitIndex(0);
+    }
+    
+    if (currentHabits.length > 0) {
+        // Show home screen with current habit
+        displayCurrentHabit();
         
         // Hide welcome screen and show home screen
         welcomeScreen.style.display = 'none';
         homeScreen.style.display = 'block';
+        
+        // Initialize swipe navigation
+        initializeSwipeNavigation(
+            homeScreen,
+            handleSwipeLeft,
+            handleSwipeRight
+        );
+        
+        // Add click handlers for navigation arrows
+        setupNavigationHandlers();
     } else {
         // Show welcome screen for new users
         welcomeScreen.style.display = 'block';
@@ -47,7 +65,7 @@ function initializeApp() {
         habitFormScreen.style.display = 'none';
         
         // Return to appropriate screen based on habits
-        const currentHabits = getHabits();
+        currentHabits = getHabits();
         if (currentHabits.length > 0) {
             homeScreen.style.display = 'block';
         } else {
@@ -64,6 +82,66 @@ function initializeApp() {
     
     // Form submission
     habitForm.addEventListener('submit', handleFormSubmit);
+}
+
+/**
+ * Display the current habit
+ */
+function displayCurrentHabit() {
+    if (currentHabits.length === 0) {
+        return;
+    }
+    
+    const habit = currentHabits[currentHabitIndex];
+    const streak = calculateStreak(habit.id, habit);
+    
+    renderHomeScreen(habit, streak);
+    renderNavigationIndicators(currentHabitIndex, currentHabits.length);
+}
+
+/**
+ * Handle swipe left (next habit)
+ */
+function handleSwipeLeft() {
+    if (currentHabits.length <= 1) {
+        return;
+    }
+    
+    const result = navigateToNextHabit(currentHabitIndex, currentHabits);
+    currentHabitIndex = result.index;
+    displayCurrentHabit();
+}
+
+/**
+ * Handle swipe right (previous habit)
+ */
+function handleSwipeRight() {
+    if (currentHabits.length <= 1) {
+        return;
+    }
+    
+    const result = navigateToPreviousHabit(currentHabitIndex, currentHabits);
+    currentHabitIndex = result.index;
+    displayCurrentHabit();
+}
+
+/**
+ * Setup click handlers for navigation arrows
+ */
+function setupNavigationHandlers() {
+    // Use event delegation since navigation elements are dynamically created
+    const navContainer = document.getElementById('habit-navigation');
+    if (!navContainer) {
+        return;
+    }
+    
+    navContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('nav-arrow-left')) {
+            handleSwipeRight(); // Previous habit
+        } else if (event.target.classList.contains('nav-arrow-right')) {
+            handleSwipeLeft(); // Next habit
+        }
+    });
 }
 
 /**
