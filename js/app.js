@@ -98,7 +98,7 @@ function displayCurrentHabit() {
     
     renderHomeScreen(habit, streak);
     renderNavigationIndicators(currentHabitIndex, currentHabits.length);
-    setupCheckOffButton(habit);
+    updateNotificationUI(habit);
 }
 
 /**
