@@ -7,6 +7,7 @@ let currentHabitIndex = 0;
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
+    registerServiceWorker();
 });
 
 /**
@@ -287,6 +288,127 @@ function handleCheckOff(habit) {
     
     // Refresh display
     displayCurrentHabit();
+}
+
+/**
+ * Register service worker for background notifications
+ */
+async function registerServiceWorker() {
+    // Check if service workers are supported
+    if (!('serviceWorker' in navigator)) {
+        console.warn('Service workers are not supported in this browser');
+        return;
+    }
+    
+    try {
+        // Register the service worker
+        const registration = await navigator.serviceWorker.register('/service-worker.js', {
+            scope: '/'
+        });
+        
+        console.log('Service Worker registered successfully:', registration);
+        
+        // Check for updates periodically
+        setInterval(() => {
+            registration.update();
+        }, 60000); // Check every minute
+        
+        // Request notification permission if not already granted
+        await requestNotificationPermission();
+        
+        // Set up periodic notification checks (every minute)
+        setupNotificationChecks(registration);
+        
+        // Listen for messages from service worker
+        navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
+        
+    } catch (error) {
+        console.error('Service Worker registration failed:', error);
+    }
+}
+
+/**
+ * Request notification permission from user
+ */
+async function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        console.warn('Notifications are not supported in this browser');
+        return false;
+    }
+    
+    // Check current permission status
+    if (Notification.permission === 'granted') {
+        console.log('Notification permission already granted');
+        return true;
+    }
+    
+    if (Notification.permission === 'denied') {
+        console.warn('Notification permission denied by user');
+        return false;
+    }
+    
+    // Request permission
+    try {
+        const permission = await Notification.requestPermission();
+        
+        if (permission === 'granted') {
+            console.log('Notification permission granted');
+            return true;
+        } else {
+            console.warn('Notification permission not granted:', permission);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error requesting notification permission:', error);
+        return false;
+    }
+}
+
+/**
+ * Setup periodic notification checks
+ */
+function setupNotificationChecks(registration) {
+    // Check notifications every minute
+    setInterval(() => {
+        if (registration.active) {
+            registration.active.postMessage({
+                type: 'CHECK_NOTIFICATIONS'
+            });
+        }
+    }, 60000); // Every 60 seconds
+    
+    // Also check immediately on load
+    setTimeout(() => {
+        if (registration.active) {
+            registration.active.postMessage({
+                type: 'CHECK_NOTIFICATIONS'
+            });
+        }
+    }, 1000);
+}
+
+/**
+ * Handle messages from service worker
+ */
+function handleServiceWorkerMessage(event) {
+    console.log('Message from service worker:', event.data);
+    
+    if (event.data && event.data.type === 'GET_HABITS') {
+        // Service worker is requesting habits data
+        const habits = getHabits();
+        const trackingData = {};
+        
+        // Collect tracking data for all habits
+        habits.forEach(habit => {
+            trackingData[habit.id] = getTracking(habit.id);
+        });
+        
+        // Send data back to service worker
+        event.ports[0].postMessage({
+            habits: habits,
+            trackingData: trackingData
+        });
+    }
 }
 
 // Test localStorage functions in console

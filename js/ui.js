@@ -196,6 +196,90 @@ function renderNavigationIndicators(currentIndex, totalHabits) {
 }
 
 /**
+ * Show celebration modal for milestone achievements
+ * @param {string} habitName - Name of the habit
+ * @param {number} milestone - The milestone day count (e.g., 7, 30, 100)
+ */
+function showCelebrationModal(habitName, milestone) {
+    const modal = document.getElementById('celebration-modal');
+    const title = document.getElementById('celebration-title');
+    const text = document.getElementById('celebration-text');
+    const closeBtn = document.getElementById('celebration-close-btn');
+    const confettiContainer = document.getElementById('confetti-container');
+    
+    if (!modal || !title || !text || !closeBtn) {
+        return;
+    }
+    
+    // Set celebration message based on milestone
+    let celebrationTitle = '';
+    let celebrationText = '';
+    
+    if (milestone === 7) {
+        celebrationTitle = '🎉 First Week Complete! 🎉';
+        celebrationText = `Amazing! You've kept up "${habitName}" for 7 days straight! Keep up the incredible work!`;
+    } else if (milestone === 30) {
+        celebrationTitle = '🏆 One Month Milestone! 🏆';
+        celebrationText = `Fantastic! You've maintained "${habitName}" for 30 days! You're building a real habit!`;
+    } else if (milestone === 50) {
+        celebrationTitle = '⭐ 50 Days Strong! ⭐';
+        celebrationText = `Incredible dedication! You've done "${habitName}" for 50 days! You're unstoppable!`;
+    } else if (milestone === 100) {
+        celebrationTitle = '💯 100 Days Achievement! 💯';
+        celebrationText = `Legendary! You've reached 100 days of "${habitName}"! This is truly remarkable!`;
+    } else if (milestone === 200) {
+        celebrationTitle = '🌟 200 Days Mastery! 🌟';
+        celebrationText = `Phenomenal! 200 days of "${habitName}"! You've mastered this habit!`;
+    } else if (milestone === 365) {
+        celebrationTitle = '👑 One Year Champion! 👑';
+        celebrationText = `EXTRAORDINARY! A full year of "${habitName}"! You're an absolute champion!`;
+    } else if (milestone === 500) {
+        celebrationTitle = '🔥 500 Days Legend! 🔥';
+        celebrationText = `UNBELIEVABLE! 500 days of "${habitName}"! You're a true legend!`;
+    } else if (milestone === 1000) {
+        celebrationTitle = '🎆 1000 Days Icon! 🎆';
+        celebrationTitle = `LEGENDARY STATUS! 1000 days of "${habitName}"! You're an icon!`;
+    } else {
+        celebrationTitle = `🎊 ${milestone} Days! 🎊`;
+        celebrationText = `Congratulations! You've maintained "${habitName}" for ${milestone} days!`;
+    }
+    
+    title.textContent = celebrationTitle;
+    text.textContent = celebrationText;
+    
+    // Clear existing confetti
+    if (confettiContainer) {
+        confettiContainer.innerHTML = '';
+        
+        // Create confetti pieces
+        const confettiCount = 50;
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+            confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
+            confettiContainer.appendChild(confetti);
+        }
+    }
+    
+    // Show modal
+    modal.style.display = 'flex';
+    
+    // Close button handler
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+    };
+    
+    // Close on background click
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
+
+/**
  * Show celebration modal for milestone achievement
  * @param {string} habitName - Name of the habit
  * @param {number} milestone - Milestone day count (e.g., 7, 30, 100)

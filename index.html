@@ -2,29 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Habit Helper - Build habits with cheerful reminders and progress tracking">
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#FF6B35">
     <title>Habit Helper</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
         <h1>Habit Helper</h1>
     </header>
     
-    <main>
+    <main role="main" id="main-content">
         <div class="container">
             <!-- Welcome Screen (Empty State) -->
-            <div id="welcome-screen" class="welcome">
-                <h2>Welcome!</h2>
-                <p>Your friendly habit tracking companion is ready to help you build great habits.</p>
-                <button id="show-create-form-btn" class="btn btn-primary">Create Your First Habit</button>
+            <div id="welcome-screen" class="welcome empty-state" role="region" aria-label="Welcome screen">
+                <span class="empty-state-icon" aria-hidden="true">🎯</span>
+                <h2>Welcome to Habit Helper!</h2>
+                <p>Your friendly habit tracking companion is ready to help you build great habits, one day at a time.</p>
+                <button id="show-create-form-btn" class="btn btn-primary" aria-label="Create your first habit">
+                    Create Your First Habit
+                </button>
             </div>
 
             <!-- Home Screen (Habit Display) -->
-            <div id="home-screen" class="home-screen" style="display: none;">
-                <div class="habit-card">
+            <div id="home-screen" class="home-screen" style="display: none;" role="region" aria-label="Habit display">
+                <div class="habit-card" role="article" aria-live="polite">
                     <div class="habit-name-section">
                         <h2 id="habit-name-display" class="habit-name"></h2>
                     </div>
@@ -56,9 +62,9 @@
             </div>
 
             <!-- Habit Creation Form -->
-            <div id="habit-form-screen" class="habit-form-container" style="display: none;">
+            <div id="habit-form-screen" class="habit-form-container" style="display: none;" role="region" aria-label="Habit creation form">
                 <h2>Create a New Habit</h2>
-                <form id="habit-form">
+                <form id="habit-form" aria-label="New habit form">
                     <div class="form-group">
                         <label for="habit-name">Habit Name *</label>
                         <input 
@@ -123,11 +129,11 @@
                         </div>
                     </div>
 
-                    <div id="form-messages"></div>
+                    <div id="form-messages" role="alert" aria-live="polite"></div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Create Habit</button>
-                        <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary" aria-label="Submit and create habit">Create Habit</button>
+                        <button type="button" id="cancel-btn" class="btn btn-secondary" aria-label="Cancel and return">Cancel</button>
                     </div>
                 </form>
             </div>
