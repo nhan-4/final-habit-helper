@@ -370,16 +370,23 @@ All modern browsers support localStorage (IE8+, all mobile browsers).
 
 ## Test Results
 
-### Last Updated: [Date]
+This section should be filled in after completing testing in each environment.
 
-### Test Summary
-- Total Tests: [Number]
-- Passed: [Number]
-- Failed: [Number]
-- Skipped: [Number]
+### Example Test Results Format:
 
-### Critical Issues
-- None / [List any critical issues]
+**Last Updated:** November 21, 2025
 
-### Notes
-- [Add any additional testing notes here]
+**Environment:** Local Development / Production
+
+**Test Summary:**
+- Total Tests: 13
+- Passed: 13
+- Failed: 0
+- Skipped: 0
+
+**Critical Issues:**
+- None found
+
+**Notes:**
+- See TEST_RESULTS.md for detailed test results from local development
+- Production test results to be added after deployment
