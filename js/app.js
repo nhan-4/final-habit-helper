@@ -98,6 +98,7 @@ function displayCurrentHabit() {
     
     renderHomeScreen(habit, streak);
     renderNavigationIndicators(currentHabitIndex, currentHabits.length);
+    setupCheckOffButton(habit);
 }
 
 /**
@@ -210,6 +211,83 @@ function handleFormSubmit(event) {
     } else {
         showError('Failed to save habit. Please try again.', formMessages);
     }
+}
+
+/**
+ * Setup check-off button for the current habit
+ * @param {Object} habit - The habit to setup check-off for
+ */
+function setupCheckOffButton(habit) {
+    const checkOffBtn = document.getElementById('check-off-btn');
+    const checkOffStatus = document.getElementById('check-off-status');
+    
+    if (!checkOffBtn || !checkOffStatus) {
+        return;
+    }
+    
+    const today = getTodayISO();
+    const trackingData = getTracking(habit.id);
+    const isCompletedToday = trackingData[today] && trackingData[today].completed;
+    
+    // Update button appearance based on completion status
+    if (isCompletedToday) {
+        checkOffBtn.classList.add('completed');
+        checkOffBtn.querySelector('.checkoff-text').textContent = 'Completed Today!';
+        checkOffStatus.textContent = 'Great job! Come back tomorrow to continue your streak.';
+    } else {
+        checkOffBtn.classList.remove('completed');
+        checkOffBtn.querySelector('.checkoff-text').textContent = 'Mark Today Complete';
+        checkOffStatus.textContent = '';
+    }
+    
+    // Setup click handler
+    checkOffBtn.onclick = function() {
+        handleCheckOff(habit);
+    };
+}
+
+/**
+ * Handle checking off a habit for today
+ * @param {Object} habit - The habit to check off
+ */
+function handleCheckOff(habit) {
+    const today = getTodayISO();
+    const trackingData = getTracking(habit.id);
+    
+    // Check if already completed today
+    if (trackingData[today] && trackingData[today].completed) {
+        // Undo completion
+        trackingData[today].completed = false;
+        trackingData[today].undoCount = (trackingData[today].undoCount || 0) + 1;
+    } else {
+        // Mark as completed
+        trackingData[today] = {
+            completed: true,
+            undoCount: 0
+        };
+        
+        // Save tracking data
+        saveTracking(habit.id, trackingData);
+        
+        // Calculate new streak
+        const newStreak = calculateStreak(habit.id, habit);
+        
+        // Check for milestone
+        const milestone = checkAndSaveMilestone(habit.id, newStreak);
+        
+        if (milestone) {
+            // Show celebration modal
+            setTimeout(() => {
+                showCelebrationModal(habit.name, milestone);
+            }, 300); // Small delay for better UX
+        }
+    }
+    
+    // Save tracking data
+    saveTracking(habit.id, trackingData);
+    
+    // Refresh display
+    displayCurrentHabit();
 }
 
 /**

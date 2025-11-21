@@ -46,6 +46,15 @@
                     <div class="habit-info">
                         <p id="habit-created-date" class="created-date"></p>
                     </div>
+                    
+                    <!-- Daily Check-off Button -->
+                    <div class="check-off-section">
+                        <button id="check-off-btn" class="btn btn-checkoff">
+                            <span class="checkoff-icon">✓</span>
+                            <span class="checkoff-text">Mark Today Complete</span>
+                        </button>
+                        <p id="check-off-status" class="check-off-status"></p>
+                    </div>
                 </div>
                 
                 <!-- Navigation Indicators -->
@@ -130,6 +139,19 @@
             </div>
         </div>
     </main>
+    
+    <!-- Milestone Celebration Modal -->
+    <div id="celebration-modal" class="celebration-modal" style="display: none;">
+        <div class="celebration-content">
+            <div class="confetti-container" id="confetti-container"></div>
+            <div class="celebration-message">
+                <div class="celebration-icon">🎉</div>
+                <h2 id="celebration-title" class="celebration-title"></h2>
+                <p id="celebration-text" class="celebration-text"></p>
+                <button id="celebration-close-btn" class="btn btn-primary celebration-btn">Awesome!</button>
+            </div>
+        </div>
+    </div>
     
     <footer>
     </footer>
