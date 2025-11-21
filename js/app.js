@@ -266,9 +266,6 @@ function handleCheckOff(habit) {
             undoCount: 0
         };
         
-        // Save tracking data
-        saveTracking(habit.id, trackingData);
-        
         // Calculate new streak
         const newStreak = calculateStreak(habit.id, habit);
         
