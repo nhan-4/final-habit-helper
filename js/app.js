@@ -1,8 +1,13 @@
 // Main Application Logic for Habit Helper
 
+// Global state
+let currentHabits = [];
+let currentHabitIndex = 0;
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
+    registerServiceWorker();
 });
 
 /**
@@ -11,18 +16,44 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     // Get DOM elements
     const welcomeScreen = document.getElementById('welcome-screen');
+    const homeScreen = document.getElementById('home-screen');
     const habitFormScreen = document.getElementById('habit-form-screen');
     const showFormBtn = document.getElementById('show-create-form-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const habitForm = document.getElementById('habit-form');
     const frequencySelect = document.getElementById('frequency');
     
-    // Check if there are existing habits
-    const habits = getHabits();
+    // Load habits and current index
+    currentHabits = getHabits();
+    currentHabitIndex = getCurrentHabitIndex();
     
-    if (habits.length > 0) {
-        // TODO: Phase 3 - Show home screen with habits
-        console.log('Existing habits found:', habits);
+    // Ensure index is valid
+    if (currentHabitIndex >= currentHabits.length) {
+        currentHabitIndex = 0;
+        saveCurrentHabitIndex(0);
+    }
+    
+    if (currentHabits.length > 0) {
+        // Show home screen with current habit
+        displayCurrentHabit();
+        
+        // Hide welcome screen and show home screen
+        welcomeScreen.style.display = 'none';
+        homeScreen.style.display = 'block';
+        
+        // Initialize swipe navigation
+        initializeSwipeNavigation(
+            homeScreen,
+            handleSwipeLeft,
+            handleSwipeRight
+        );
+        
+        // Add click handlers for navigation arrows
+        setupNavigationHandlers();
+    } else {
+        // Show welcome screen for new users
+        welcomeScreen.style.display = 'block';
+        homeScreen.style.display = 'none';
     }
     
     // Event Listeners
@@ -33,7 +64,15 @@ function initializeApp() {
     
     cancelBtn.addEventListener('click', function() {
         habitFormScreen.style.display = 'none';
-        welcomeScreen.style.display = 'block';
+        
+        // Return to appropriate screen based on habits
+        currentHabits = getHabits();
+        if (currentHabits.length > 0) {
+            homeScreen.style.display = 'block';
+        } else {
+            welcomeScreen.style.display = 'block';
+        }
+        
         clearForm(habitForm);
     });
     
@@ -44,6 +83,66 @@ function initializeApp() {
     
     // Form submission
     habitForm.addEventListener('submit', handleFormSubmit);
+}
+
+/**
+ * Display the current habit
+ */
+function displayCurrentHabit() {
+    if (currentHabits.length === 0) {
+        return;
+    }
+    
+    const habit = currentHabits[currentHabitIndex];
+    const streak = calculateStreak(habit.id, habit);
+    
+    renderHomeScreen(habit, streak);
+    renderNavigationIndicators(currentHabitIndex, currentHabits.length);
+}
+
+/**
+ * Handle swipe left (next habit)
+ */
+function handleSwipeLeft() {
+    if (currentHabits.length <= 1) {
+        return;
+    }
+    
+    const result = navigateToNextHabit(currentHabitIndex, currentHabits);
+    currentHabitIndex = result.index;
+    displayCurrentHabit();
+}
+
+/**
+ * Handle swipe right (previous habit)
+ */
+function handleSwipeRight() {
+    if (currentHabits.length <= 1) {
+        return;
+    }
+    
+    const result = navigateToPreviousHabit(currentHabitIndex, currentHabits);
+    currentHabitIndex = result.index;
+    displayCurrentHabit();
+}
+
+/**
+ * Setup click handlers for navigation arrows
+ */
+function setupNavigationHandlers() {
+    // Use event delegation since navigation elements are dynamically created
+    const navContainer = document.getElementById('habit-navigation');
+    if (!navContainer) {
+        return;
+    }
+    
+    navContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('nav-arrow-left')) {
+            handleSwipeRight(); // Previous habit
+        } else if (event.target.classList.contains('nav-arrow-right')) {
+            handleSwipeLeft(); // Next habit
+        }
+    });
 }
 
 /**
@@ -110,6 +209,127 @@ function handleFormSubmit(event) {
         }, 1500);
     } else {
         showError('Failed to save habit. Please try again.', formMessages);
+    }
+}
+
+/**
+ * Register service worker for background notifications
+ */
+async function registerServiceWorker() {
+    // Check if service workers are supported
+    if (!('serviceWorker' in navigator)) {
+        console.warn('Service workers are not supported in this browser');
+        return;
+    }
+    
+    try {
+        // Register the service worker
+        const registration = await navigator.serviceWorker.register('/service-worker.js', {
+            scope: '/'
+        });
+        
+        console.log('Service Worker registered successfully:', registration);
+        
+        // Check for updates periodically
+        setInterval(() => {
+            registration.update();
+        }, 60000); // Check every minute
+        
+        // Request notification permission if not already granted
+        await requestNotificationPermission();
+        
+        // Set up periodic notification checks (every minute)
+        setupNotificationChecks(registration);
+        
+        // Listen for messages from service worker
+        navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
+        
+    } catch (error) {
+        console.error('Service Worker registration failed:', error);
+    }
+}
+
+/**
+ * Request notification permission from user
+ */
+async function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        console.warn('Notifications are not supported in this browser');
+        return false;
+    }
+    
+    // Check current permission status
+    if (Notification.permission === 'granted') {
+        console.log('Notification permission already granted');
+        return true;
+    }
+    
+    if (Notification.permission === 'denied') {
+        console.warn('Notification permission denied by user');
+        return false;
+    }
+    
+    // Request permission
+    try {
+        const permission = await Notification.requestPermission();
+        
+        if (permission === 'granted') {
+            console.log('Notification permission granted');
+            return true;
+        } else {
+            console.warn('Notification permission not granted:', permission);
+            return false;
+        }
+    } catch (error) {
+        console.error('Error requesting notification permission:', error);
+        return false;
+    }
+}
+
+/**
+ * Setup periodic notification checks
+ */
+function setupNotificationChecks(registration) {
+    // Check notifications every minute
+    setInterval(() => {
+        if (registration.active) {
+            registration.active.postMessage({
+                type: 'CHECK_NOTIFICATIONS'
+            });
+        }
+    }, 60000); // Every 60 seconds
+    
+    // Also check immediately on load
+    setTimeout(() => {
+        if (registration.active) {
+            registration.active.postMessage({
+                type: 'CHECK_NOTIFICATIONS'
+            });
+        }
+    }, 1000);
+}
+
+/**
+ * Handle messages from service worker
+ */
+function handleServiceWorkerMessage(event) {
+    console.log('Message from service worker:', event.data);
+    
+    if (event.data && event.data.type === 'GET_HABITS') {
+        // Service worker is requesting habits data
+        const habits = getHabits();
+        const trackingData = {};
+        
+        // Collect tracking data for all habits
+        habits.forEach(habit => {
+            trackingData[habit.id] = getTracking(habit.id);
+        });
+        
+        // Send data back to service worker
+        event.ports[0].postMessage({
+            habits: habits,
+            trackingData: trackingData
+        });
     }
 }
 
