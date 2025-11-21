@@ -706,6 +706,57 @@ a:active {
     transform: translateX(-50%);
 }
 
+/* Check-off Button Section */
+.check-off-section {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-checkoff {
+    width: 100%;
+    background-color: white;
+    color: var(--primary-color);
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-checkoff:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-checkoff:active {
+    transform: scale(0.98);
+}
+
+.btn-checkoff.completed {
+    background-color: var(--success-color);
+    color: var(--text-color);
+    border-color: var(--success-color);
+}
+
+.checkoff-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.check-off-status {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9375rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-align: center;
+}
+
 /* Swipe transition animation */
 .habit-card {
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -738,5 +789,160 @@ a:active {
 @media (hover: none) and (pointer: coarse) {
     .nav-arrow:active {
         background-color: var(--primary-dark);
+    }
+}
+
+/* Milestone Celebration Modal */
+.celebration-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.95) 0%, rgba(255, 140, 97, 0.95) 100%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+    overflow: hidden;
+}
+
+.celebration-content {
+    position: relative;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    max-width: 90%;
+    width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideUpBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 2;
+}
+
+.celebration-icon {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-md);
+    animation: rotateScale 0.8s ease-in-out;
+}
+
+.celebration-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-sm);
+}
+
+.celebration-text {
+    color: var(--text-color);
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+.celebration-btn {
+    min-width: 200px;
+    font-size: 1.125rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+/* Confetti Container */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color);
+    opacity: 0;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+/* Confetti color variations */
+.confetti:nth-child(2n) { background-color: var(--primary-color); }
+.confetti:nth-child(3n) { background-color: var(--secondary-color); }
+.confetti:nth-child(4n) { background-color: var(--success-color); }
+.confetti:nth-child(5n) { background-color: #FFE66D; }
+.confetti:nth-child(7n) { 
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+}
+.confetti:nth-child(11n) { 
+    width: 6px; 
+    height: 12px; 
+}
+
+/* Celebration Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpBounce {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes rotateScale {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(-10vh) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* Responsive celebration modal */
+@media (max-width: 767px) {
+    .celebration-content {
+        max-width: 85%;
+        padding: var(--spacing-lg);
+    }
+    
+    .celebration-icon {
+        font-size: 4rem;
+    }
+    
+    .celebration-title {
+        font-size: 1.75rem;
+    }
+    
+    .celebration-text {
+        font-size: 1rem;
     }
 }

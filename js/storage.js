@@ -154,3 +154,60 @@ function saveCurrentHabitIndex(index) {
         return false;
     }
 }
+
+/**
+ * Get milestones for a specific habit
+ * @param {string} habitId - Unique habit identifier
+ * @returns {Array} Array of achieved milestone day counts
+ */
+function getMilestones(habitId) {
+    try {
+        const milestonesJSON = localStorage.getItem(`milestones_${habitId}`);
+        return milestonesJSON ? JSON.parse(milestonesJSON) : [];
+    } catch (error) {
+        console.error(`Error reading milestones for habit ${habitId}:`, error);
+        return [];
+    }
+}
+
+/**
+ * Save milestones for a specific habit
+ * @param {string} habitId - Unique habit identifier
+ * @param {Array} milestones - Array of milestone day counts
+ * @returns {boolean} Success status
+ */
+function saveMilestones(habitId, milestones) {
+    try {
+        localStorage.setItem(`milestones_${habitId}`, JSON.stringify(milestones));
+        return true;
+    } catch (error) {
+        console.error(`Error saving milestones for habit ${habitId}:`, error);
+        return false;
+    }
+}
+
+/**
+ * Check if a milestone has been reached and save it
+ * @param {string} habitId - Unique habit identifier
+ * @param {number} currentStreak - Current streak count
+ * @returns {number|null} The milestone reached (e.g., 7, 30, 100) or null if no new milestone
+ */
+function checkAndSaveMilestone(habitId, currentStreak) {
+    // Define milestone thresholds
+    const milestoneThresholds = [7, 30, 50, 100, 200, 365, 500, 1000];
+    
+    // Get existing milestones
+    const existingMilestones = getMilestones(habitId);
+    
+    // Check if current streak matches any milestone threshold
+    for (const threshold of milestoneThresholds) {
+        if (currentStreak === threshold && !existingMilestones.includes(threshold)) {
+            // New milestone reached!
+            existingMilestones.push(threshold);
+            saveMilestones(habitId, existingMilestones);
+            return threshold;
+        }
+    }
+    
+    return null;
+}
