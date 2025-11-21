@@ -259,6 +259,9 @@ function handleCheckOff(habit) {
         // Undo completion
         trackingData[today].completed = false;
         trackingData[today].undoCount = (trackingData[today].undoCount || 0) + 1;
+        
+        // Save tracking data
+        saveTracking(habit.id, trackingData);
     } else {
         // Mark as completed
         trackingData[today] = {
@@ -266,7 +269,10 @@ function handleCheckOff(habit) {
             undoCount: 0
         };
         
-        // Calculate new streak
+        // Save tracking data first
+        saveTracking(habit.id, trackingData);
+        
+        // Calculate new streak after saving
         const newStreak = calculateStreak(habit.id, habit);
         
         // Check for milestone
@@ -279,9 +285,6 @@ function handleCheckOff(habit) {
             }, 300); // Small delay for better UX
         }
     }
-    
-    // Save tracking data
-    saveTracking(habit.id, trackingData);
     
     // Refresh display
     displayCurrentHabit();
