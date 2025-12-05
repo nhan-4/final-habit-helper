@@ -54,6 +54,12 @@ function initializeApp() {
         // Show welcome screen for new users
         welcomeScreen.style.display = 'block';
         homeScreen.style.display = 'none';
+        
+        // Display welcome quote
+        const welcomeQuote = document.getElementById('welcome-quote');
+        if (welcomeQuote) {
+            displayQuote(welcomeQuote, 'general');
+        }
     }
     
     // Event Listeners
@@ -61,6 +67,9 @@ function initializeApp() {
         welcomeScreen.style.display = 'none';
         habitFormScreen.style.display = 'block';
     });
+    
+    // Initialize Phase 13 features
+    initializePhase13Features();
     
     cancelBtn.addEventListener('click', function() {
         habitFormScreen.style.display = 'none';
@@ -408,6 +417,235 @@ function handleServiceWorkerMessage(event) {
             habits: habits,
             trackingData: trackingData
         });
+    }
+}
+
+/**
+ * Initialize Phase 13 Features (Future Enhancements)
+ */
+function initializePhase13Features() {
+    // Get DOM elements
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsScreen = document.getElementById('settings-screen');
+    const settingsCloseBtn = document.getElementById('settings-close-btn');
+    const templatesScreen = document.getElementById('templates-screen');
+    const showTemplatesBtn = document.getElementById('show-templates-btn');
+    const templatesCancelBtn = document.getElementById('templates-cancel-btn');
+    const exportDataBtn = document.getElementById('export-data-btn');
+    const importFileInput = document.getElementById('import-file-input');
+    const clearDataBtn = document.getElementById('clear-data-btn');
+    const refreshQuoteBtn = document.getElementById('refresh-quote-btn');
+    
+    // Settings button
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', showSettings);
+    }
+    
+    // Close settings
+    if (settingsCloseBtn) {
+        settingsCloseBtn.addEventListener('click', hideSettings);
+    }
+    
+    // Templates button
+    if (showTemplatesBtn) {
+        showTemplatesBtn.addEventListener('click', showTemplatesScreen);
+    }
+    
+    // Close templates
+    if (templatesCancelBtn) {
+        templatesCancelBtn.addEventListener('click', hideTemplatesScreen);
+    }
+    
+    // Export data
+    if (exportDataBtn) {
+        exportDataBtn.addEventListener('click', function() {
+            downloadDataExport();
+            showSettingsMessage('Data exported successfully!', 'success');
+        });
+    }
+    
+    // Import data
+    if (importFileInput) {
+        importFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const mode = document.querySelector('input[name="import-mode"]:checked').value;
+            handleImportFile(file, mode, function(result) {
+                if (result.success) {
+                    showSettingsMessage(result.message, 'success');
+                    // Reload habits
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    showSettingsMessage(result.message, 'error');
+                }
+            });
+            
+            // Reset file input
+            e.target.value = '';
+        });
+    }
+    
+    // Clear data
+    if (clearDataBtn) {
+        clearDataBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete ALL your habits and data? This cannot be undone!')) {
+                clearAllData(function(result) {
+                    if (result.success) {
+                        showSettingsMessage('All data cleared', 'success');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+            }
+        });
+    }
+    
+    // Refresh quote
+    if (refreshQuoteBtn) {
+        refreshQuoteBtn.addEventListener('click', function() {
+            const dailyQuote = document.getElementById('daily-quote');
+            displayQuote(dailyQuote, 'general');
+        });
+    }
+}
+
+/**
+ * Show settings screen
+ */
+function showSettings() {
+    const settingsScreen = document.getElementById('settings-screen');
+    const homeScreen = document.getElementById('home-screen');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    
+    // Hide other screens
+    if (homeScreen) homeScreen.style.display = 'none';
+    if (welcomeScreen) welcomeScreen.style.display = 'none';
+    
+    // Show settings
+    settingsScreen.style.display = 'block';
+    
+    // Update statistics
+    updateDataStatistics();
+    
+    // Display daily quote
+    const dailyQuote = document.getElementById('daily-quote');
+    if (dailyQuote) {
+        dailyQuote.textContent = getQuoteOfTheDay();
+    }
+}
+
+/**
+ * Hide settings screen
+ */
+function hideSettings() {
+    const settingsScreen = document.getElementById('settings-screen');
+    const homeScreen = document.getElementById('home-screen');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    
+    settingsScreen.style.display = 'none';
+    
+    // Show appropriate screen
+    const habits = getHabits();
+    if (habits.length > 0) {
+        homeScreen.style.display = 'block';
+    } else {
+        welcomeScreen.style.display = 'block';
+    }
+}
+
+/**
+ * Update data statistics in settings
+ */
+function updateDataStatistics() {
+    const stats = getDataStatistics();
+    
+    document.getElementById('stat-habits').textContent = stats.habitsCount;
+    document.getElementById('stat-completions').textContent = stats.totalCompletions;
+    document.getElementById('stat-storage').textContent = stats.storageSize;
+}
+
+/**
+ * Show settings message
+ */
+function showSettingsMessage(message, type) {
+    const messagesDiv = document.getElementById('settings-messages');
+    messagesDiv.textContent = message;
+    messagesDiv.className = type;
+    
+    setTimeout(() => {
+        messagesDiv.className = '';
+        messagesDiv.textContent = '';
+    }, 5000);
+}
+
+/**
+ * Show templates screen
+ */
+function showTemplatesScreen() {
+    const templatesScreen = document.getElementById('templates-screen');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const homeScreen = document.getElementById('home-screen');
+    
+    // Hide other screens
+    if (welcomeScreen) welcomeScreen.style.display = 'none';
+    if (homeScreen) homeScreen.style.display = 'none';
+    
+    // Show templates
+    templatesScreen.style.display = 'block';
+    
+    // Display templates
+    const templatesList = document.getElementById('templates-list');
+    displayTemplates(templatesList, handleTemplateSelection);
+}
+
+/**
+ * Hide templates screen
+ */
+function hideTemplatesScreen() {
+    const templatesScreen = document.getElementById('templates-screen');
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const homeScreen = document.getElementById('home-screen');
+    
+    templatesScreen.style.display = 'none';
+    
+    // Show appropriate screen
+    const habits = getHabits();
+    if (habits.length > 0) {
+        homeScreen.style.display = 'block';
+    } else {
+        welcomeScreen.style.display = 'block';
+    }
+}
+
+/**
+ * Handle template selection
+ */
+function handleTemplateSelection(template) {
+    const habit = createHabitFromTemplate(template.id);
+    
+    if (habit) {
+        // Save habit
+        currentHabits = getHabits();
+        currentHabits.push(habit);
+        saveHabits(currentHabits);
+        
+        // Initialize tracking
+        saveTracking(habit.id, {});
+        
+        // Request notification permission
+        requestNotificationPermission();
+        
+        // Show success and go to home screen
+        hideTemplatesScreen();
+        
+        // Reload to show new habit
+        setTimeout(() => {
+            window.location.reload();
+        }, 300);
     }
 }
 

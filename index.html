@@ -14,7 +14,12 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <header role="banner">
-        <h1>Habit Helper</h1>
+        <div class="header-content">
+            <h1>Habit Helper</h1>
+            <button id="settings-btn" class="settings-btn" aria-label="Open settings">
+                <span class="settings-icon">⚙️</span>
+            </button>
+        </div>
     </header>
     
     <main role="main" id="main-content">
@@ -26,6 +31,12 @@
                 <p>Your friendly habit tracking companion is ready to help you build great habits, one day at a time.</p>
                 <button id="show-create-form-btn" class="btn btn-primary" aria-label="Create your first habit">
                     Create Your First Habit
+                </button>
+                <div class="quote-section">
+                    <p id="welcome-quote" class="motivational-quote"></p>
+                </div>
+                <button id="show-templates-btn" class="btn btn-secondary" aria-label="Choose from habit templates">
+                    Or Choose from Templates
                 </button>
             </div>
 
@@ -138,6 +149,90 @@
                     </div>
                 </form>
             </div>
+
+            <!-- Habit Templates Screen -->
+            <div id="templates-screen" class="templates-container" style="display: none;" role="region" aria-label="Habit templates">
+                <h2>Choose a Habit Template</h2>
+                <p class="templates-description">Get started quickly with pre-defined habits</p>
+                <div id="templates-list" class="templates-list"></div>
+                <div class="form-actions">
+                    <button type="button" id="templates-cancel-btn" class="btn btn-secondary">Back</button>
+                </div>
+            </div>
+
+            <!-- Settings Screen -->
+            <div id="settings-screen" class="settings-container" style="display: none;" role="region" aria-label="Settings">
+                <h2>Settings & Data Management</h2>
+                
+                <!-- Data Statistics -->
+                <div class="settings-section">
+                    <h3>Data Overview</h3>
+                    <div class="data-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Habits:</span>
+                            <span id="stat-habits" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Completions:</span>
+                            <span id="stat-completions" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Storage Used:</span>
+                            <span id="stat-storage" class="stat-value">0 KB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote of the Day -->
+                <div class="settings-section">
+                    <h3>Daily Inspiration</h3>
+                    <div class="quote-display">
+                        <p id="daily-quote" class="daily-quote"></p>
+                        <button id="refresh-quote-btn" class="btn btn-small">New Quote</button>
+                    </div>
+                </div>
+
+                <!-- Data Export/Import -->
+                <div class="settings-section">
+                    <h3>Backup & Restore</h3>
+                    <p class="section-description">Export your data for backup or transfer to another device</p>
+                    
+                    <button id="export-data-btn" class="btn btn-primary">
+                        <span class="btn-icon">📥</span> Export All Data
+                    </button>
+                    
+                    <div class="import-section">
+                        <label for="import-file-input" class="btn btn-secondary">
+                            <span class="btn-icon">📤</span> Import Data
+                        </label>
+                        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                        
+                        <div class="import-mode">
+                            <label>
+                                <input type="radio" name="import-mode" value="merge" checked>
+                                <span>Merge with existing data</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="import-mode" value="replace">
+                                <span>Replace all data</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clear Data -->
+                <div class="settings-section danger-zone">
+                    <h3>Danger Zone</h3>
+                    <p class="section-description warning-text">⚠️ This action cannot be undone!</p>
+                    <button id="clear-data-btn" class="btn btn-danger">Clear All Data</button>
+                </div>
+
+                <div id="settings-messages" role="alert" aria-live="polite"></div>
+
+                <div class="form-actions">
+                    <button type="button" id="settings-close-btn" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
         </div>
     </main>
     
@@ -158,6 +253,9 @@
     </footer>
     
     <script src="js/storage.js"></script>
+    <script src="js/quotes.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/export-import.js"></script>
     <script src="js/swipe.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>

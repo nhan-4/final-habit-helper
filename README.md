@@ -14,21 +14,47 @@ Think of it as your personal cheerleader in your pocket, nudging you to keep goi
 
 ### User Input & Setup
 - Lets users input a habit and set how often they want notifications
+- Choose from 15+ pre-defined habit templates for quick setup
+- Custom habit creation with personalized settings
 
 ### Home Screen Display
 - Shows the user's main habit goal
 - Shows how many days the user has kept their habit going
 - Tracks how many days the user has been building their habit on the tracking page
+- Displays motivational quotes for daily inspiration
 
 ### Notifications & Reminders
 - Sends regular notifications (reminders) to help users stay motivated
-- Sends friendly reminders
+- Sends friendly reminders with encouraging messages
+- Contextual motivational quotes based on time of day and progress
 
 ## User Engagement & Motivation
 
 ### Milestone Celebrations
 - Gives encouragement at important milestones to keep users motivated
 - Celebrate milestones in a cheerful, playful, and cute way to keep users excited
+
+### Motivational Quotes (NEW ✨)
+- 50+ encouraging quotes to keep you inspired
+- Context-aware quotes (morning, evening, streak-based)
+- Quote of the day feature
+- Refresh for instant inspiration
+
+### Habit Templates (NEW ✨)
+- 15 pre-defined habits across 4 categories:
+  - Health & Fitness
+  - Learning
+  - Mindfulness
+  - Creative
+- One-click habit creation with optimal defaults
+- Beautiful visual interface with icons and descriptions
+
+### Data Management (NEW ✨)
+- Export all your data as JSON for backup
+- Import data to restore or transfer between devices
+- Two import modes: merge or replace
+- View data statistics (habits, completions, storage)
+- Clear all data option with safety confirmation
 
 ## Technical Requirements
 
@@ -43,14 +69,23 @@ Think of it as your personal cheerleader in your pocket, nudging you to keep goi
 ### Welcome Screen
 ![Welcome Screen](https://github.com/user-attachments/assets/ab9af7aa-8815-4d19-b54e-fbd41b69c722)
 
+### Welcome Screen with Motivational Quote (Phase 13)
+![Welcome with Quote](https://github.com/user-attachments/assets/79469b05-e60e-4f9f-bf27-228ab4f01282)
+
 ### Create Habit Form
 ![Create Habit Form](https://github.com/user-attachments/assets/ef7929ee-da04-4375-b0fd-f3e60137e232)
+
+### Habit Templates (Phase 13)
+![Habit Templates](https://github.com/user-attachments/assets/2004976a-b597-421e-9f7b-b2075c45e193)
 
 ### Habit Tracking
 ![Habit Home Screen](https://github.com/user-attachments/assets/c3531b6f-b83d-41c5-bba1-1f0221c2342c)
 
 ### Habit Completed
 ![Habit Completed](https://github.com/user-attachments/assets/e2c50e7b-c5d3-41ac-8b80-a34293a3ae98)
+
+### Settings & Data Management (Phase 13)
+![Settings Screen](https://github.com/user-attachments/assets/9e5f9fd2-f1df-4d66-8d97-d30384e26406)
 
 ---
 
